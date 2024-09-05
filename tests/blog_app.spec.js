@@ -11,16 +11,36 @@ describe('blog app', () => {
       }
     })
     await page.goto('http://localhost:5173')
+
+    //first click on the login button to make the login form visible
+    await page.getByRole('button', { name: 'log in'}).click()
     
   })
-  test('login form is visible after pressing login button', async ({ page }) => {
-    
+  test('login form is visible by default', async ({ page }) => {
 
-    await page.getByRole('button', { name: 'log in'}).click()
-
-    const locatorUsername = await page.getByText('username')
-    const locatorPassword = await page.getByText('password')
+    const locatorUsername = await page.getByTestId('username')
+    const locatorPassword = await page.getByTestId('password')
     await expect(locatorUsername).toBeVisible()
     await expect(locatorPassword).toBeVisible()
+  })
+
+  describe('Login', () => {
+    test('succeeds with correct credentials', async ({ page }) => {
+
+      await page.getByTestId('username').fill ('mluukkai')
+      await page.getByTestId('password').fill ('salainen')
+
+      await page.getByRole('button', { name: 'login' }).click()
+
+      await expect(page.getByText('Matti Luukkainen logged in')).toBeVisible()
+    })
+
+    test('fails with wrong credentials', async ({ page }) => {
+      await page.getByTestId('username').fill ('mluukkai')
+      await page.getByTestId('password').fill ('wrong')
+      await page.getByRole('button', {name: 'login'}).click()
+
+      await expect(page.getByText('wrong username or password')).toBeVisible()
+    })
   })
 })
