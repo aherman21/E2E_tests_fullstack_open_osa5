@@ -1,0 +1,20 @@
+{
+  "name": "e2e_tests_fullstack_open",
+  "version": "1.0.0",
+  "description": "e2e_tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:report": "playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "e2e_tests_fullstack_open"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.46.1",
+    "@types/node": "^22.5.3"
+  }
+}
